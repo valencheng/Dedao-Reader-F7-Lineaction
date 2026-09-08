@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.chengfei.clipsync"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <!-- 全部权限：仅联网。无存储、无通知、无前台服务、无开机广播 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:label="划线同步"
+        android:allowBackup="false"
+        android:hardwareAccelerated="false"
+        android:largeHeap="false"
+        android:usesCleartextTraffic="true">
+
+        <!-- 无界面常驻服务：由系统（无障碍框架）绑定并保活，重启后自动恢复 -->
+        <service
+            android:name=".ClipSyncService"
+            android:exported="true"
+            android:label="划线同步（剪贴板监听）"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config"/>
+        </service>
+
+        <!-- 极简输入法：成为默认输入法后，系统保证本包可读剪贴板（isDefaultIme 放行） -->
+        <service
+            android:name=".ClipSyncIme"
+            android:exported="true"
+            android:label="划线同步键盘"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method"/>
+        </service>
+    </application>
+</manifest>

@@ -1,0 +1,13 @@
+{
+  "endpoint": "https://openapi.biji.com/open/api/v1/resource/note/save",
+  "method": "POST",
+  "token": "",
+  "headers": {
+    "X-Client-ID": "cli_替换成你的ClientID",
+    "Authorization": "gk_live_替换成你的APIKey"
+  },
+  "body_template": "{\"note_type\": \"plain_text\", \"title\": \"划线 {{date}}\", \"content\": {{content}}, \"tags\": [\"划线\"], \"client_request_id\": \"{{clip_id}}\"}",
+  "min_length": 2,
+  "max_length": 200000,
+  "deep_read": true
+}
